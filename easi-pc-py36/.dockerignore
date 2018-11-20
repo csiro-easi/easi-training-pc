@@ -1,0 +1,5 @@
+# Have docker ignore directories for its context that are mounted as volumes - saves a heap of time if the files a large
+data
+work
+output
+postgres-data

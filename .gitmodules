@@ -1,0 +1,4 @@
+[submodule "datacube-core"]
+	path = datacube-core
+	url = https://github.com/csiro-easi/datacube-core.git
+	branch = develop
