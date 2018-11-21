@@ -4,6 +4,9 @@ LABEL maintainer="CSIRO EASI Data Cube Training on PC <Robert.Woodcock@csiro.au>
 
 USER root
 
+# A littel apt configuration to speed downloads a little
+ADD 99parallel /etc/apt/apt.conf.d/99parallel
+
 # Switch to Australian mirror for ubuntu apt packages
 RUN sed --in-place --regexp-extended "s/(\/\/)(archive\.ubuntu)/\1au.\2/" /etc/apt/sources.list && \
 	apt-get update && apt-get upgrade --yes
@@ -42,6 +45,7 @@ RUN apt-get update && \
     sudo \
     locales \
     fonts-liberation \
+    ffmpeg \
     # OS dependencies for fully functional Jupyter notebook server
     build-essential \
     emacs \
@@ -104,7 +108,7 @@ RUN mkdir /home/$NB_USER/work && \
 RUN pip3 install --no-cache --no-binary :all: psycopg2
 
 # Install jupyter notebook and additional python packages for interactive odc use
-RUN pip3 install jupyter matplotlib folium
+RUN pip3 install jupyter matplotlib folium ffmpeg shapely scikit-image
 
 RUN ~/.local/bin/jupyter notebook --generate-config && \
     rm -rf /home/$NB_USER/.cache/yarn && \

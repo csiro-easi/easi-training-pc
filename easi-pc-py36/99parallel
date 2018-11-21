@@ -1,0 +1,2 @@
+APT::Acquire::Queue-Mode "access";
+APT::Acquire::Retries 3;

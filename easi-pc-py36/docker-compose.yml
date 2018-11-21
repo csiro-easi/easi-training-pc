@@ -21,7 +21,7 @@ services:
     volumes:
       - ../datacube-core:/home/jovyan/odc
       - ../../sample_data:/data
-      - ../output:/output
+      - ../output:/home/jovyan/output
       - ../work:/home/jovyan/work
       - ./config/datacube.conf:/home/jovyan/.datacube.conf
       - ./config/datacube_integration.conf:/home/jovyan/.datacube_integration.conf
