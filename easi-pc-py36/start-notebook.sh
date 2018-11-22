@@ -14,7 +14,7 @@ if [ ! $(pip3 freeze 2> /dev/null | grep datacube==) ]; then
     # # Fix an issue with the pandas pinned version in requirements-test.txt not being appropriate (ImportError: cannot import name 'AbstractMethodError').
     # # TODO: This should be fixed in datacube-core on the CSIRO branch or fork as will be determined in future.
     # Add missing python packages that are required for things like data inges
-    pip3 install pandas
+    pip3 install pandas geopandas
 fi
 # Start Jupyter Notebook
 cd $HOME/work
