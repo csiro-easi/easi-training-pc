@@ -29,6 +29,7 @@ Get the container name and connect to a bash shell inside the container
 ```
 $ docker ps -a
 $ docker exec -t -i [CONTAINER ID or NAME] /bin/bash
+$ export PATH=~/.local/bin:$PATH
 ```
 
 
@@ -75,6 +76,27 @@ If you need to build the docker image locally because something changed in the i
 $ docker build -t [CONTAINER ID or NAME] .
  ```
 
+Also worth checking and cleaning the volumes
+```
+$ docker volume ls
+DRIVER              VOLUME NAME
+local               d3742d97fc21b9d9ae31a0e45a43c0c3ae35c332a86438863ac04c7d8135413f
+local               easi-training-pc-postgres-data
+local               f7c06db474fb69c90d364f7f5b150c4085f75aa2194248aceeb74adf97a17e85
+local               f2391ace277e83f5cb6994c4a711793896ac256106c200d24ff6f4635eede0f3
+local               f96331cf43ed46e331f7ced0e8c2c368ac599bbf57a3f72913381e7a804a07f3
+
+$ docker volume prune
+
+$ docker volume ls
+DRIVER              VOLUME NAME
+local               easi-training-pc-postgres-data
+```
+
+To remove the database and start fresh, also remove the persistent volume
+```
+$ docker volume rm [volume]
+```
 
 ## Guides
 
