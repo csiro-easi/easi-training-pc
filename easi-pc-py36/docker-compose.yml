@@ -11,6 +11,8 @@ services:
       - POSTGRES_PASSWORD=eev2
     volumes:
       - postgres-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
 
   opendatacube:
     image: csiroeasi/easi-training-pc:latest
@@ -19,7 +21,7 @@ services:
     environment:
       - DISPLAY
     ports:
-    - "8888:8888"
+     - "8888:8888"
     volumes:
       - ../datacube-core:/home/jovyan/odc
       - ../../sample_data:/data

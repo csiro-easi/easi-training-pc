@@ -3,3 +3,4 @@ data
 work
 output
 postgres-data
+Dockerfile

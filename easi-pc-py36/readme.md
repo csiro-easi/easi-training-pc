@@ -34,8 +34,7 @@ $ export PATH=~/.local/bin:$PATH
 
 
 ## Usage
-TODO Write usage instructions
-
+List images, with their names and IDs
 ```
 $ docker images
 REPOSITORY                   TAG                 IMAGE ID            CREATED             SIZE
@@ -43,6 +42,7 @@ csiroeasi/easi-training-pc   latest              3117169adcdd        5 days ago 
 postgres                     alpine              daa3d8ceab8f        2 weeks ago         71.7MB
 ```
 
+List containers, with their names and IDs
 ```
 $ docker ps -a
 CONTAINER ID        IMAGE                               COMMAND                  CREATED             STATUS                     PORTS               NAMES
@@ -50,6 +50,15 @@ e458777744b1        csiroeasi/easi-training-pc:latest   "/usr/local/bin/tini…"
 258fddc6eaba        postgres:alpine                     "docker-entrypoint.s…"   3 minutes ago       Up 3 minutes               5432/tcp            easi-pc-py36_postgres_1_f9d66f7ef79b
 ```
 
+Create new or updated containers, using docker-compose.yaml
+```
+$ docker-compose up -d
+Creating network "easi-pc-py36_default" with the default driver
+Creating easi-pc-py36_postgres_1_63b38f66fe3a ... done
+Creating easi-pc-py36_opendatacube_1_126caea7fcef ... done
+```
+
+Close and remove the containers, using docker-compose.yaml
 ```
 $ docker-compose down
 Stopping easi-pc-py36_postgres_1_f9d66f7ef79b ... done
@@ -60,20 +69,13 @@ $ docker ps -a
 CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
 ```
 
+If you need to build the docker image locally because something changed in the image build process then use `docker build`. If there are errors then you will need to fix them. When it completes you will have your custom image, from which to create containers. Edit `docker-compose.yaml` to use the new image.
 ```
-$ time docker-compose up
-Creating network "easi-pc-py36_default" with the default driver
-Creating easi-pc-py36_postgres_1_63b38f66fe3a ... done
-Creating easi-pc-py36_opendatacube_1_126caea7fcef ... done
-
-real	0m2.099s
-user	0m0.423s
-sys	0m0.130s
-```
-
-If you need to build the docker image locally because something changed in the image build process then use `docker build`. Eventually you will have a local version. `docker-compose` will then use that image.
-```
-$ docker build -t [CONTAINER ID or NAME] .
+$ export DOCKER_BUILDKIT=1  # Smarter caching and output, for docker>=18.06
+$ docker build -t NAME:TAG .
+# Edit docker-compose.yaml to use the new image
+$ docker-compose down
+$ docker-compose up -d
  ```
 
 Also worth checking and cleaning the volumes
@@ -96,6 +98,66 @@ local               easi-training-pc-postgres-data
 To remove the database and start fresh, also remove the persistent volume
 ```
 $ docker volume rm [volume]
+```
+
+To access the database from inside the datacube container
+```
+$ docker ps -a
+CONTAINER ID        IMAGE                               COMMAND                  CREATED             STATUS              PORTS                    NAMES
+9a5664366bbf        csiroeasi/easi-training-pc:latest   "/usr/local/bin/tini…"   19 minutes ago      Up 19 minutes       0.0.0.0:8888->8888/tcp   easi-pc-py36_opendatacube_1_74b7a97e85c2
+e6168560f7c9        postgres:alpine                     "docker-entrypoint.s…"   19 minutes ago      Up 19 minutes       5432/tcp   easi-pc-py36_postgres_1_61e60b4ca331
+
+$ docker exec -it 9a5664366bbf bash
+jovyan@9a5664366bbf:/$ psql -h postgres -p 5432 -U odc
+Password for user odc:
+psql (10.6 (Ubuntu 10.6-0ubuntu0.18.04.1), server 11.1)
+WARNING: psql major version 10, server major version 11.
+         Some psql features might not work.
+Type "help" for help.
+
+odc=#
+```
+
+To expose your data cube database to applications outside of docker.
+```
+$ docker ps -a
+CONTAINER ID        IMAGE                               COMMAND                  CREATED             STATUS              PORTS                    NAMES
+9a5664366bbf        csiroeasi/easi-training-pc:latest   "/usr/local/bin/tini…"   19 minutes ago      Up 19 minutes       0.0.0.0:8888->8888/tcp   easi-pc-py36_opendatacube_1_74b7a97e85c2
+e6168560f7c9        postgres:alpine                     "docker-entrypoint.s…"   19 minutes ago      Up 19 minutes       5432/tcp   easi-pc-py36_postgres_1_61e60b4ca331
+
+$ docker stop e6168560f7c9
+$ docker rm e6168560f7c9
+
+# Update docker-compose.yaml to ensure there is a key/value in the postgres section like,
+    - ports:
+        5432:5432
+
+$ docker-compose up -d
+Creating network "easi-pc-py36_default" with the default driver
+Creating easi-pc-py36_postgres_1_83ff9eebd620 ... done
+Creating easi-pc-py36_opendatacube_1_63043048f161 ... done
+
+$ docker ps -a
+CONTAINER ID        IMAGE                               COMMAND                  CREATED             STATUS              PORTS                    NAMES
+36ce31051b72        csiroeasi/easi-training-pc:latest   "/usr/local/bin/tini…"   10 minutes ago      Up 10 minutes       0.0.0.0:8888->8888/tcp   easi-pc-py36_opendatacube_1_6c1be926266a
+bcb9cc9e7996        postgres:alpine                     "docker-entrypoint.s…"   10 minutes ago      Up 10 minutes       0.0.0.0:5432->5432/tcp   easi-pc-py36_postgres_1_22c416f1bf2e
+
+# Ensure that you do not have another another postgres server running that may also be listening on port 5432
+# From outside docker
+$ psql -h localhost -p 5432 -U odc
+Password for user odc:
+psql (10.5, server 11.1)
+WARNING: psql major version 10, server major version 11.
+         Some psql features might not work.
+Type "help" for help.
+
+odc=# \q
+```
+
+Notes
+```
+$ docker-compose build web
+$ docker-compose up --no-deps -d web
 ```
 
 ## Guides
