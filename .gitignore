@@ -102,4 +102,4 @@ venv.bak/
 
 # mypy
 .mypy_cache/
-output/cloud_free_landsat.gif
+output/
