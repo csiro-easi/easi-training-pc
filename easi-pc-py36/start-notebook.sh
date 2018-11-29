@@ -19,13 +19,4 @@ fi
 # Start Jupyter Notebook
 cd $HOME/work
 
-if [[ ! -z "${JUPYTERHUB_API_TOKEN}" ]]; then
-  # launched by JupyterHub, use single-user entrypoint
-  exec /usr/local/bin/start-singleuser.sh $*
-else
-  if [[ ! -z "${JUPYTER_ENABLE_LAB}" ]]; then
-    . /usr/local/bin/start.sh ~/.local/bin/jupyter lab $*
-  else
-    . /usr/local/bin/start.sh ~/.local/bin/jupyter notebook --NotebookApp.token='secretpassword' $*
-  fi
-fi
+/usr/local/bin/start.sh ~/.local/bin/jupyter notebook --NotebookApp.token='secretpassword' $*
