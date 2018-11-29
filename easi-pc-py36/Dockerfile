@@ -89,7 +89,7 @@ RUN groupadd wheel -g 11 && \
     echo "auth required pam_wheel.so use_uid" >> /etc/pam.d/su && \
     useradd -m -s /bin/bash -N -u $NB_UID $NB_USER && \
     chmod g+w /etc/passwd && \
-    fix-permissions $HOME
+    /bin/bash fix-permissions $HOME
 
 # Install Tini.. this is required because CMD (below) doesn't play nice with notebooks for some reason: https://github.com/ipython/ipython/issues/7062, https://github.com/jupyter/notebook/issues/334
 RUN curl -L https://github.com/krallin/tini/releases/download/v0.10.0/tini > tini && \
@@ -100,9 +100,9 @@ RUN curl -L https://github.com/krallin/tini/releases/download/v0.10.0/tini > tin
 USER $NB_UID
 
 # Setup work directory for backward-compatibility
-RUN mkdir /home/$NB_USER/work && \
-    mkdir /home/${NB_USER}/odc && \
-    fix-permissions /home/$NB_USER
+RUN mkdir $HOME/work && \
+    mkdir $HOME/odc && \
+    /bin/bash fix-permissions $HOME
 
 # Install psycopg2 as a special case, to quiet the warning message 
 RUN pip3 install --no-cache --no-binary :all: psycopg2
@@ -111,8 +111,8 @@ RUN pip3 install --no-cache --no-binary :all: psycopg2
 RUN pip3 install jupyter matplotlib folium ffmpeg shapely scikit-image
 
 RUN ~/.local/bin/jupyter notebook --generate-config && \
-    rm -rf /home/$NB_USER/.cache/yarn && \
-    fix-permissions /home/$NB_USER
+    rm -rf $HOME/.cache/yarn && \
+    /bin/bash fix-permissions $HOME
 
 USER root
 
@@ -122,14 +122,14 @@ EXPOSE 8888
 ENTRYPOINT ["/usr/local/bin/tini", "-g", "--"]
 
 # launch notebook
-CMD ["start-notebook.sh"]
+CMD ["/bin/bash", "start-notebook.sh"]
 
 # Add local files as late as possible to avoid cache busting
 COPY start.sh /usr/local/bin/
 COPY start-notebook.sh /usr/local/bin/
 COPY start-singleuser.sh /usr/local/bin/
 COPY jupyter_notebook_config.py /etc/jupyter/
-RUN fix-permissions /etc/jupyter/
+RUN /bin/bash fix-permissions /etc/jupyter/
 
 # Switch back to jovyan to avoid accidental container runs as root
 USER $NB_UID

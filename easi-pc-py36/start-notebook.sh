@@ -16,6 +16,13 @@ if [ ! $(pip3 freeze 2> /dev/null | grep datacube==) ]; then
     # Add missing python packages that are required for things like data inges
     pip3 install pandas geopandas
 fi
+# Update path
+if [[ ":$PATH:" != *":$HOME/.local/bin:"* ]]; then
+  export PATH=$HOME/.local/bin:$PATH
+  echo PATH updated. $PATH
+else
+  echo PATH is fine. $PATH
+fi
 # Start Jupyter Notebook
 cd $HOME/work
 
