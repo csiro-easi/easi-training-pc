@@ -1,5 +1,8 @@
 #!/bin/bash
+
+# Drop out on any error
 set -e
+
 # Install ODC dev environment - only once
 if [ ! $(pip3 freeze 2> /dev/null | grep datacube==) ]; then
     # Now use the setup.py file to identify dependencies
@@ -16,6 +19,7 @@ if [ ! $(pip3 freeze 2> /dev/null | grep datacube==) ]; then
     # Add missing python packages that are required for things like data inges
     pip3 install pandas geopandas
 fi
+
 # Update path
 if [[ ":$PATH:" != *":$HOME/.local/bin:"* ]]; then
   export PATH=$HOME/.local/bin:$PATH
@@ -23,7 +27,16 @@ if [[ ":$PATH:" != *":$HOME/.local/bin:"* ]]; then
 else
   echo PATH is fine. $PATH
 fi
+
+# Optionally install the Dashboard. Requires postgis
+if [ "$1" == "with-dashboard" ]; then
+    echo Invoking start-dashboard.sh
+    /bin/bash /usr/local/bin/start-dashboard.sh
+    shift  # pop "with-dashboard"
+fi
+
 # Start Jupyter Notebook
 cd $HOME/work
 
-/usr/local/bin/start.sh ~/.local/bin/jupyter notebook --NotebookApp.token='secretpassword' $*
+/bin/bash /usr/local/bin/start.sh $HOME/.local/bin/jupyter notebook --NotebookApp.token='secretpassword' $*
+
