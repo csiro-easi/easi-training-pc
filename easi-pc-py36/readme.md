@@ -29,7 +29,7 @@ List the containers names and IDs
 $ docker ps -a
 ```
 
-Follow the download and follow progress. (Crtl-c to exit).
+Follow the download and install progress. (Crtl-c to exit).
 ```
 $ docker logs -f [CONTAINER ID or NAME]
 ```
