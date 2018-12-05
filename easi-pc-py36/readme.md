@@ -90,8 +90,9 @@ CONTAINER ID        IMAGE               COMMAND             CREATED             
 
 If you need to build the docker image locally (from `DockerFile`) because something changed in the image build process then use `docker build`. If there are errors then you will need to fix them. When it completes you will have your custom image, from which to create containers. Edit `docker-compose.yaml` to use the new image.
 ```
-$ export DOCKER_BUILDKIT=1  # Smarter caching and output, for docker>=18.06
-$ docker build -t NAME:TAG .
+$ export DOCKER_BUILDKIT=1     # Smarter caching and output, for docker>=18.06
+$ docker build -t NAME:TAG .   # Reads DockerFile
+
 # Edit docker-compose.yaml to use the new image
 $ docker-compose down
 $ docker-compose up -d
