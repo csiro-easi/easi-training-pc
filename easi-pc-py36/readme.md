@@ -67,6 +67,16 @@ Creating easi-pc-py36_postgres_1_63b38f66fe3a ... done
 Creating easi-pc-py36_opendatacube_1_126caea7fcef ... done
 ```
 
+Close and stop (not remove) a container
+```
+docker stop [CONTAINER ID or NAME]
+```
+
+Start a stopped container
+```
+docker start [CONTAINER ID or NAME]
+```
+
 Close and remove the containers, using docker-compose.yaml
 ```
 $ docker-compose down
@@ -78,7 +88,7 @@ $ docker ps -a
 CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
 ```
 
-If you need to build the docker image locally because something changed in the image build process then use `docker build`. If there are errors then you will need to fix them. When it completes you will have your custom image, from which to create containers. Edit `docker-compose.yaml` to use the new image.
+If you need to build the docker image locally (from `DockerFile`) because something changed in the image build process then use `docker build`. If there are errors then you will need to fix them. When it completes you will have your custom image, from which to create containers. Edit `docker-compose.yaml` to use the new image.
 ```
 $ export DOCKER_BUILDKIT=1  # Smarter caching and output, for docker>=18.06
 $ docker build -t NAME:TAG .
@@ -87,7 +97,7 @@ $ docker-compose down
 $ docker-compose up -d
  ```
 
-Also worth checking and cleaning the volumes
+Also worth checking and cleaning (pruning) the unused volumes
 ```
 $ docker volume ls
 DRIVER              VOLUME NAME
@@ -106,7 +116,7 @@ local               easi-training-pc-postgres-data
 
 To remove the database and start fresh, also remove the persistent volume
 ```
-$ docker volume rm [volume]
+$ docker volume rm [VOLUME NAME]
 ```
 
 To access the database from inside the datacube container
@@ -123,7 +133,7 @@ Type "help" for help.
 odc=#
 ```
 
-To expose your data cube database to applications outside of docker.
+To expose your data cube database to applications outside of docker. Ensure that you do not have another another postgres server running that may also be listening on port 5432.
 ```
 $ docker stop [CONTAINER ID or NAME]
 $ docker rm [CONTAINER ID or NAME]
@@ -142,7 +152,6 @@ CONTAINER ID        IMAGE                               COMMAND                 
 36ce31051b72        csiroeasi/easi-training-pc:latest   "/usr/local/bin/tini…"   10 minutes ago      Up 10 minutes       0.0.0.0:8888->8888/tcp   easi-pc-py36_opendatacube_1_6c1be926266a
 bcb9cc9e7996        postgres:alpine                     "docker-entrypoint.s…"   10 minutes ago      Up 10 minutes       0.0.0.0:5432->5432/tcp   easi-pc-py36_postgres_1_22c416f1bf2e
 
-# Ensure that you do not have another another postgres server running that may also be listening on port 5432
 # From outside docker
 
 $ psql -h localhost -p 5432 -U odc
@@ -152,7 +161,7 @@ WARNING: psql major version 10, server major version 11.
          Some psql features might not work.
 Type "help" for help.
 
-odc=# \q
+odc=#
 ```
 
 ## Guides
