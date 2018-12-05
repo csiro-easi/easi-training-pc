@@ -1,5 +1,4 @@
 # Standalone Docker for CSIRO DC Training environment
-# Python 3.6 development environment
 
 ## Installation
 Clone the repository, noting the submodule(s).
@@ -30,7 +29,7 @@ List the containers names and IDs
 $ docker ps -a
 ```
 
-Follow the download and create progress. (Crtl-c to exit).
+Follow the download and follow progress. (Crtl-c to exit).
 ```
 $ docker logs -f [CONTAINER ID or NAME]
 ```
