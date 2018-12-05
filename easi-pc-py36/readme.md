@@ -13,7 +13,7 @@ $ cd easi-training-pc/
 $ git submodule update --init --recursive
 ```
 
-Download and run the docker images
+Download and run the docker images. 
 ```
 $ cd easi-training-pc/easi-pc-py36/
 $ docker-compose up
@@ -23,13 +23,23 @@ user	0m1.355s
 sys	0m0.245s
 ```
 
-Go to a browser and enter "`localhost:8888`". This should connect to the docker's jupyter notebooks. Jupyter password is "`secretpassword`".
+`Docker-compose up` will download (or use previously downloaded) base images and create containers for postgres and datacube with notebooks. When the container for datacube is created it will run `start-notebook.sh`, which will download the python requirements for datacube. This may take some time.
 
-Get the container name and connect to a bash shell inside the container
+List the containers names and IDs
 ```
 $ docker ps -a
+```
+
+Follow the download and create progress. (Crtl-c to exit).
+```
+$ docker logs -f [CONTAINER ID or NAME]
+```
+
+Go to a browser and enter "`localhost:8888`". This should connect to the docker's jupyter notebooks. Jupyter password is "`secretpassword`".
+
+Connect to a bash shell inside the container
+```
 $ docker exec -t -i [CONTAINER ID or NAME] /bin/bash
-$ export PATH=~/.local/bin:$PATH
 ```
 
 
@@ -102,13 +112,9 @@ $ docker volume rm [volume]
 
 To access the database from inside the datacube container
 ```
-$ docker ps -a
-CONTAINER ID        IMAGE                               COMMAND                  CREATED             STATUS              PORTS                    NAMES
-9a5664366bbf        csiroeasi/easi-training-pc:latest   "/usr/local/bin/tini…"   19 minutes ago      Up 19 minutes       0.0.0.0:8888->8888/tcp   easi-pc-py36_opendatacube_1_74b7a97e85c2
-e6168560f7c9        postgres:alpine                     "docker-entrypoint.s…"   19 minutes ago      Up 19 minutes       5432/tcp   easi-pc-py36_postgres_1_61e60b4ca331
+$ docker exec -it [CONTAINER ID or NAME] bash
 
-$ docker exec -it 9a5664366bbf bash
-jovyan@9a5664366bbf:/$ psql -h postgres -p 5432 -U odc
+jovyan@[ID]:/$ psql -h postgres -p 5432 -U odc
 Password for user odc:
 psql (10.6 (Ubuntu 10.6-0ubuntu0.18.04.1), server 11.1)
 WARNING: psql major version 10, server major version 11.
@@ -120,13 +126,8 @@ odc=#
 
 To expose your data cube database to applications outside of docker.
 ```
-$ docker ps -a
-CONTAINER ID        IMAGE                               COMMAND                  CREATED             STATUS              PORTS                    NAMES
-9a5664366bbf        csiroeasi/easi-training-pc:latest   "/usr/local/bin/tini…"   19 minutes ago      Up 19 minutes       0.0.0.0:8888->8888/tcp   easi-pc-py36_opendatacube_1_74b7a97e85c2
-e6168560f7c9        postgres:alpine                     "docker-entrypoint.s…"   19 minutes ago      Up 19 minutes       5432/tcp   easi-pc-py36_postgres_1_61e60b4ca331
-
-$ docker stop e6168560f7c9
-$ docker rm e6168560f7c9
+$ docker stop [CONTAINER ID or NAME]
+$ docker rm [CONTAINER ID or NAME]
 
 # Update docker-compose.yaml to ensure there is a key/value in the postgres section like,
     - ports:
@@ -144,6 +145,7 @@ bcb9cc9e7996        postgres:alpine                     "docker-entrypoint.s…"
 
 # Ensure that you do not have another another postgres server running that may also be listening on port 5432
 # From outside docker
+
 $ psql -h localhost -p 5432 -U odc
 Password for user odc:
 psql (10.5, server 11.1)
@@ -152,12 +154,6 @@ WARNING: psql major version 10, server major version 11.
 Type "help" for help.
 
 odc=# \q
-```
-
-Notes
-```
-$ docker-compose build web
-$ docker-compose up --no-deps -d web
 ```
 
 ## Guides
