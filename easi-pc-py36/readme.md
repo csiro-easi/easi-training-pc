@@ -97,6 +97,10 @@ $ docker build -t NAME:TAG .   # Reads DockerFile
 $ docker-compose down
 $ docker-compose up -d
  ```
+*Windows Powershell: Set environment variable with*
+```
+$env:DOCKER_BUILDKIT = 1
+```
 
 Also worth checking and cleaning (pruning) the unused volumes
 ```

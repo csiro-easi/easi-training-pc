@@ -20,8 +20,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 RUN add-apt-repository ppa:nextgis/ppa
 
-RUN apt-get update && \
-	apt-get install -y --no-install-recommends \
+RUN apt-get install -y --no-install-recommends \
     # Core requirements from travis.yml
     gdal-bin gdal-data libgdal-dev libgdal20 libudunits2-0 \
     # Extra python components, to speed things up
@@ -48,21 +47,21 @@ RUN apt-get update && \
     ffmpeg \
     # OS dependencies for fully functional Jupyter notebook server
     build-essential \
-    emacs \
-    inkscape \
-    jed \
-    libsm6 \
-    libxext-dev \
-    libxrender1 \
-    lmodern \
-    netcat \
-    pandoc \
-    texlive-fonts-extra \
-    texlive-fonts-recommended \
-    texlive-generic-recommended \
-    texlive-latex-base \
-    texlive-latex-extra \
-    texlive-xetex \
+    # emacs \
+    # inkscape \
+    # jed \
+    # libsm6 \
+    # libxext-dev \
+    # libxrender1 \
+    # lmodern \
+    # netcat \
+    # pandoc \
+    # texlive-fonts-extra \
+    # texlive-fonts-recommended \
+    # texlive-generic-recommended \
+    # texlive-latex-base \
+    # texlive-latex-extra \
+    # texlive-xetex \
     unzip \
     nano \
     && apt-get clean \
