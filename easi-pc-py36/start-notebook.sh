@@ -6,15 +6,10 @@ if [ ! $(pip3 freeze 2> /dev/null | grep datacube==) ]; then
     cd $HOME/odc
     export CPLUS_INCLUDE_PATH=/usr/include/gdal
     export C_INCLUDE_PATH=/usr/include/gdal
-        
+    
     rm -rf $HOME/.cache/pip
-    # Install ODC in develop mode
+    # Install ODC in develop mode with all dependencies
     pip3 install -e .
-    pip3 install --requirement requirements-test.txt
-    # # Fix an issue with the pandas pinned version in requirements-test.txt not being appropriate (ImportError: cannot import name 'AbstractMethodError').
-    # # TODO: This should be fixed in datacube-core on the CSIRO branch or fork as will be determined in future.
-    # Add missing python packages that are required for things like data inges
-    pip3 install pandas geopandas
 fi
 # Update path
 if [[ ":$PATH:" != *":$HOME/.local/bin:"* ]]; then
