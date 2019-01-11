@@ -1,4 +1,4 @@
-FROM ubuntu:latest
+FROM ubuntu:18.04
 
 LABEL maintainer="CSIRO EASI Data Cube Training on PC <Robert.Woodcock@csiro.au>"
 
@@ -7,19 +7,21 @@ USER root
 # A littel apt configuration to speed downloads a little
 ADD 99parallel /etc/apt/apt.conf.d/99parallel
 
-# Switch to Australian mirror for ubuntu apt packages, add NextGIS repo and update existing packages for security and patching
-# This is the updated base OS layer
+# Switch to Australian mirror for ubuntu apt packages
 RUN sed --in-place --regexp-extended "s/(\/\/)(archive\.ubuntu)/\1au.\2/" /etc/apt/sources.list && \
-	apt-get update && \
-    apt-get install -y --no-install-recommends software-properties-common && \
-    add-apt-repository ppa:nextgis/ppa && \
-    apt-get upgrade --yes
+	apt-get update && apt-get upgrade --yes
 
 ENV DEBIAN_FRONTEND noninteractive
 
-# Install core requirements for ODC development and jupyter notebooks
+# First add the NextGIS repo
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    software-properties-common \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN add-apt-repository ppa:nextgis/ppa
+
 RUN apt-get install -y --no-install-recommends \
-    # Core requirements
+    # Core requirements from travis.yml
     gdal-bin gdal-data libgdal-dev libgdal20 libudunits2-0 \
     # Extra python components, to speed things up
     python3 python3-setuptools python3-dev \
@@ -43,8 +45,7 @@ RUN apt-get install -y --no-install-recommends \
     locales \
     fonts-liberation \
     ffmpeg \
-    # OS dependencies for fully functional Jupyter notebook server as listed on the jupyter docker stacks
-    # Most art commented out as they seem unnecessary for the current training evironment and keep the docker container build and size smaller
+    # OS dependencies for fully functional Jupyter notebook server
     build-essential \
     # emacs \
     # inkscape \
@@ -87,9 +88,10 @@ RUN groupadd wheel -g 11 && \
     echo "auth required pam_wheel.so use_uid" >> /etc/pam.d/su && \
     useradd -m -s /bin/bash -N -u $NB_UID $NB_USER && \
     chmod g+w /etc/passwd && \
-    /bin/bash fix-permissions $HOME && \
+    /bin/bash fix-permissions $HOME
+
 # Install Tini.. this is required because CMD (below) doesn't play nice with notebooks for some reason: https://github.com/ipython/ipython/issues/7062, https://github.com/jupyter/notebook/issues/334
-    curl -L https://github.com/krallin/tini/releases/download/v0.10.0/tini > tini && \
+RUN curl -L https://github.com/krallin/tini/releases/download/v0.10.0/tini > tini && \
     echo "1361527f39190a7338a0b434bd8c88ff7233ce7b9a4876f3315c22fce7eca1b0 *tini" | sha256sum -c - && \
     mv tini /usr/local/bin/tini && \
     chmod +x /usr/local/bin/tini
@@ -99,11 +101,17 @@ USER $NB_UID
 # Setup work directory for backward-compatibility
 RUN mkdir $HOME/work && \
     mkdir $HOME/odc && \
-    /bin/bash fix-permissions $HOME && \
+    /bin/bash fix-permissions $HOME
+
 # Install psycopg2 as a special case, to quiet the warning message 
-    pip3 install --no-cache --no-binary :all: psycopg2 && \
+RUN pip3 install --no-cache --no-binary :all: psycopg2
+
 # Install jupyter notebook and additional python packages for interactive odc use
-    pip3 install jupyter matplotlib folium ffmpeg shapely scikit-image
+RUN pip3 install jupyter matplotlib folium ffmpeg shapely scikit-image
+
+RUN ~/.local/bin/jupyter notebook --generate-config && \
+    rm -rf $HOME/.cache/yarn && \
+    /bin/bash fix-permissions $HOME
 
 USER root
 
