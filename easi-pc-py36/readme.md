@@ -17,9 +17,6 @@ Download and run the docker images.
 $ cd easi-training-pc/easi-pc-py36/
 $ docker-compose up -d
 
-real	6m35.203s
-user	0m1.355s
-sys	0m0.245s
 ```
 
 `docker-compose up -d` will download (or use previously downloaded) base images and create containers for each of postgres and datacube with notebooks. When the container for datacube is created it will run `start-notebook.sh`, which will download the python requirements for datacube. This may take some time.
