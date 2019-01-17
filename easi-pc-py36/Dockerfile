@@ -23,7 +23,6 @@ RUN apt-get install -y --no-install-recommends \
     gdal-bin gdal-data libgdal-dev libgdal20 libudunits2-0 \
     # Extra python components, to speed things up
     python3 python3-setuptools python3-dev \
-    python3-numpy python3-netcdf4 python3-gdal \
     # Need pip to install more python packages later.
     # The libdpkg-perl is needed to build pyproj
     python3-pip python3-wheel libdpkg-perl \
