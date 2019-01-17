@@ -3,7 +3,7 @@
 # Table of Contents
 1. [Quickly get up and running](#quickly-get-up-and-running)
 2. [Using Jupyter Notebooks](#using-jupyter-notebooks)
-3. [Debugging my own python with Visual Studio Code](#debugging-my-own-python-with-visual -studio-code)
+3. [Debugging my own python with Visual Studio Code](#debugging-my-own-python-with-visual-studio-code)
 
 # Quickly get up and running
 
