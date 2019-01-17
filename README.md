@@ -1,5 +1,10 @@
 # CSIRO EASI training environment for PC (Win,Mac,Linux) 
 
+# Table of Contents
+1. [Quickly get up and running](#quickly-get-up-and-running)
+2. [Using Jupyter Notebooks](#using-jupyter-notebooks)
+3. [Debugging my own python with Visual Studio Code](#debugging-my-own-python-with-visual -studio-code)
+
 # Quickly get up and running
 
 ## Clone the repository, noting the submodule(s)
@@ -26,20 +31,7 @@ $ git submodule update --init --recursive
 $ cd easi-training-pc/easi-pc-py36/
 $ docker-compose up -d
 ```
-## Connect via your web browser to the jupyter notebooks
-1. Go to a browser and enter "`localhost:8888`". This should connect to the docker's jupyter notebooks. Jupyter password is "`secretpassword`".
-2. Navigate to the "`easi-pc-notebooks`" and open "`01 - PC Getting Started`" and work your way through initialising the database and indexing some sample data.
-3. Other notebooks show how to ingest data and the ODC API
 
-## Connect to a bash shell inside the container
-```
-$ docker exec -t -i easi-pc-py36_opendatacube_1 /bin/bash
-$ cd ~ # to get to the home directory
-```
-_Note: The container above will change if you have a container of the same name still around. You can list current containers and get the names using:_
-```
-docker container ls
-```
 ## Files: Notebooks, data and your own python files
 Changes that are user would make, be it python library installs, database index, etc can occur in two places:
 1. On the host system
@@ -72,6 +64,46 @@ $ docker-compose stop
 $ docker-compose start
 $ docker-compose down  # destructive
 ```
+
+# Using Jupyter Notebooks
+## Connect via your web browser to the jupyter notebooks
+1. Go to a browser and enter "`localhost:8888`". This should connect to the docker's jupyter notebooks. Jupyter password is "`secretpassword`".
+2. Navigate to the "`easi-pc-notebooks`" and open "`01 - PC Getting Started`" and work your way through initialising the database and indexing some sample data.
+3. Other notebooks show how to ingest data and the ODC API
+
+# Debugging my own python with Visual Studio Code
+1. Put your python source in the hosts "`work`" directory
+1. Configure Visual Studio Code by adding a Configuration with the following:
+    ```
+            {
+                "name": "Attach ODC Container (Remote Debug)",
+                "type": "python",
+                "request": "attach",
+                "localRoot": "${workspaceRoot}/work",
+                "remoteRoot": "/home/jovyan/work",
+                "port": 5678,
+                "host": "localhost"
+            },
+    ```
+1. Connect to a bash shell inside the container (you can use the Visual Studio Code build in terminal to do this, or the Docker extension you can just right click Attach Shell)
+    ```
+    $ docker exec -t -i easi-pc-py36_opendatacube_1 /bin/bash
+    ```
+    _Note: The container above will change if you have a container of the same name still around. You can list current containers and get the names using:_
+    ```
+    docker container ls
+    ```
+1. In the container bash shall use pip3 to install any additional packages you require (you will need to do this whenever your create a new container (using up/down). Using start/stop will preserve container between uses)
+1. In the bash execute change to the "`~/work`" directory and execute "`yourCode.py`" with using ptvsd
+    ```
+    $ cd ~/work
+    $ python3 -m ptvsd --host 0.0.0.0 --port 5678 --wait yourCode.py
+    ```
+    The code will block and wait for the debugger to attach.
+1. In Visual Studio Code debugger set breakpoints in your code and then start debugging using the Attach ODC Container (Remote Debug) configuration you setup earlier
+
+
+
 
 # Additional details
 See [easi-pc-py36/readme.md](easi-pc-py36/readme.md) for detailed instructions.

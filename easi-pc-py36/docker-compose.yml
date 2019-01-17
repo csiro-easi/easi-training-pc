@@ -19,7 +19,8 @@ services:
     environment:
       - DISPLAY
     ports:
-     - "8888:8888"
+      - "8888:8888"
+      - "5678:5678"
     volumes:
       - ../datacube-core:/home/jovyan/odc
       - ../../sample_data:/data
