@@ -6,15 +6,20 @@
 3. [Debugging my own python with Visual Studio Code](#debugging-my-own-python-with-visual-studio-code)
 
 # Quickly get up and running
+## Prerequisites
+* Install git - https://git-scm.com/downloads
+* Install Docker - https://docs.docker.com/install/
 
-## Clone the repository, noting the submodule(s)
-*Windows host notes:*
-* __Do not use Docker Desktop 2.0.0.2__ (current release at 16/1/2018), please use Docker Desktop 2.0.0.0. There is a known issue that causes intermitment file not found errors in datacube.load() when it uses rasterio to read the host files.
+All commands listed here should be entered into a terminal. On Windows Powershell works just fine.
+
+***Windows host notes:***
+* __Do not use Docker Desktop 2.0.0.2__ (current release at 16/1/2018), please use [Docker Desktop 2.0.0.0](https://download.docker.com/win/stable/29211/Docker%20for%20Windows%20Installer.exe). There is a known issue that causes intermitment file not found errors in datacube.load() when it uses rasterio to read the host files.
 * __CRLF handling in GIT and Editor__ As described below many of the text files used by the Docker container are mounted from the Docker host. Since Windows uses CRLF line endings by default and Linux (running in the Containers) uses only LF it is important to ensure that GIT and your chosen editors use LF by default. You will need to determine how to do this in your editor (eg. Visual Studio Code shows the current LF ending in the lower right of the window and has a default you can change in its settings). In Git auto conversion can be disabled prior to cloning by adjusting the global config:
     ```
     $ git config --global core.autocrlf false
     ```
 
+## Clone the repository, noting the submodule(s)
 To clone the repository and submodules:
 ```
 git clone --recursive https://github.com/csiro-easi/easi-training-pc.git
