@@ -1,0 +1,148 @@
+source_type: modis_mod13q1_scene
+output_type: modis_mod13q1_albers
+
+description:  MODIS MOD13Q1.006 Terra Vegetation Indicies 250m WGS84,  Australian Albers Equal Area projection (EPSG:3577)
+
+location: '/data/tmp/'
+file_path_template: 'MOD13Q1/MCD43A4_3577_{tile_index[0]}_{tile_index[1]}_{start_time}.nc'
+global_attributes:
+  title: MOD13Q1- Terra Vegetation Indices 16-Day L3 Global 250 m
+  summary: MOD13Q1- Terra Vegetation Indices 16-Day L3 Global 250 m 
+  source: USGS
+  institution: USGS
+  instrument: ETM
+  cdm_data_type: Grid
+  keywords: AU/GA,NASA/GSFC/SED/ESD/MODIS,REFLECTANCE
+  keywords_vocabulary: GCMD
+  platform: TERRA
+  processing_level: L2
+  product_version: '6.0.0'
+  product_suite: USGS MODIS
+  project: AWS
+  coverage_content_type: physicalMeasurement
+  references: http://dx.doi.org/10.3334/ORNLDAAC/1146
+  license: https://creativecommons.org/licenses/by/4.0/
+  naming_authority: gov.usgs
+  acknowledgment: MODIS data is provided by the United States Geological Survey (USGS).
+
+storage:
+  driver: s3aio
+  bucket: 'digiscape-modis-mod13q1'
+
+  crs: EPSG:3577
+  tile_size:
+          x: 2000000.0
+          y: 2000000.0
+  resolution:
+          x: 250
+          y: -250
+  chunking:
+      x: 2000
+      y: 2000
+      time: 1
+  dimension_order: ['time', 'y', 'x']
+
+measurements:
+    - name: ndvi
+      dtype: int16
+      nodata: -3000
+      resampling_method: nearest
+      src_varname: 'ndvi'
+      zlib: True
+      attrs:
+          long_name: "normailised differnce vegetation index"
+          alias: "ndvi"
+    - name: evi
+      dtype: int16
+      nodata: -3000
+      resampling_method: nearest
+      src_varname: 'evi'
+      zlib: True
+      attrs:
+          long_name: "enhanced vegetation index"
+          alias: "evi"
+    - name: blue
+      dtype: int16
+      nodata: -1000
+      resampling_method: nearest
+      src_varname: 'blue'
+      zlib: True
+      attrs:
+          long_name: "NADIR Reflectance 0.459-0.479 microns (Blue)"
+          alias: "band_3"
+    - name: green
+      dtype: int16
+      nodata: -1000
+      resampling_method: nearest
+      src_varname: 'green'
+      zlib: True
+      attrs:
+          long_name: "NADIR Reflectance 0.545-0.565 microns (Green)"
+          alias: "band_4"
+    - name: nir
+      dtype: int16
+      nodata: -1000
+      resampling_method: nearest
+      src_varname: 'nir'
+      zlib: True
+      attrs:
+          long_name: "NADIR Reflectance 0.841-0.876 microns (NIR)"
+          alias: "band_2"
+    - name: swir2
+      dtype: int16
+      nodata: -1000
+      resampling_method: nearest
+      src_varname: 'mir'
+      zlib: True
+      attrs:
+          long_name: "NADIR Reflectance 2.105-2.155 microns (Short-wave Infrared)"
+          alias: "band_7"  
+    - name: doy
+      dtype: int16
+      nodata: -1
+      resampling_method: nearest
+      src_varname: 'doy'
+      zlib: True
+      attrs:
+          long_name: "doy"
+          alias: 'doy'
+    - name: vza
+      dtype: int16
+      nodata: -10000
+      resampling_method: nearest
+      src_varname: 'vza'
+      zlib: True
+      attrs:
+          long_name: "view zenith angle"
+    - name: sza
+      dtype: int16
+      nodata: -10000
+      resampling_method: nearest
+      src_varname: 'sza'
+      zlib: True
+      attrs:
+          long_name: "sun zenith angle"
+    - name: raa
+      dtype: int16
+      nodata: -10000
+      resampling_method: nearest
+      src_varname: 'raa'
+      zlib: True
+      attrs:
+          long_name: "relative zentih angle"
+    - name: qa
+      dtype: int8
+      nodata: -1
+      resampling_method: nearest
+      src_varname: 'qa'
+      zlib: True
+      attrs:
+          long_name: "pixel reliability"
+    - name: vi_qa
+      dtype: uint16
+      nodata: 65535
+      resampling_method: nearest
+      src_varname: 'vi_qa'
+      zlib: True
+      attrs:
+          long_name: "VI quality indicators"

@@ -1,0 +1,75 @@
+name: modis_mod13q1_scene
+description: MODIS MOD13Q1.006 Terra Vegetation Indicies 16 day 250m WGS84
+metadata_type: eo
+
+metadata:
+    platform:
+        code: TERRA
+    instrument:
+        name: MODIS
+    product_type: MOD13Q1.006
+    format:
+        name: GeoTiff
+
+measurements:
+    - name: 'ndvi'
+      aliases: [ndvi]
+      dtype: int16
+      nodata: -3000
+      units: 'unitless'
+    - name: 'evi'
+      aliases: [evi]
+      dtype: int16
+      nodata: -3000
+      units: 'unitless'
+    - name: 'blue'
+      aliases: [band3, blue]
+      dtype: int16
+      nodata: -1000 
+      units: 'reflectance'
+    - name: 'red'
+      aliases: [band1, red]
+      dtype: int16
+      nodata: -1000
+      units: 'reflectance'
+    - name: 'nir'
+      aliases: [band2, nir]
+      dtype: int16
+      nodata: -1000
+      units: 'reflectance'
+    - name: 'mir'
+      aliases: [band7, mir, swir2]
+      dtype: int16
+      nodata: -1000
+      units: 'reflectance'
+    - name: 'doy'
+      aliases: [doy]
+      dtype: int16
+      nodata: -1
+      units: 'unitless'
+    - name: 'vza'
+      aliases: [vza]
+      dtype: int16
+      nodata: -10000
+      units: 'degree'
+    - name: 'sza'
+      aliases: [sza]
+      dtype: int16
+      nodata: -10000
+      units: 'degree'
+    - name: 'raa'
+      aliases: [raa]
+      dtype: int16
+      nodata: -4000
+      units: 'degree'
+    - name: 'qa'
+      aliases: [qa]
+      dtype: int8
+      nodata: -1
+      units: 'unitless'
+    - name: 'vi_qa'
+      aliases: [vi_qa]
+      dtype: uint16
+      nodata: 65535
+      units: 'unitless'
+

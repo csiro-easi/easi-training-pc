@@ -1,0 +1,85 @@
+name: modis_mcd43a4_scene
+description: MODIS MCD43A4.006 Adjusted Reflectance 500m WGS84
+metadata_type: eo
+
+metadata:
+    platform:
+        code: TERRA/AQUA
+    instrument:
+        name: MODIS
+    product_type: MCD43A4.006
+    format:
+        name: GeoTiff
+
+measurements:
+    - name: 'sr_band1'
+      aliases: [band_1, red]
+      dtype: uint16
+      nodata: 32767
+      units: 'reflectance'
+    - name: 'sr_band2'
+      aliases: [band_2, nir]
+      dtype: uint16
+      nodata: 32767
+      units: 'reflectance'
+    - name: 'sr_band3'
+      aliases: [band_3, blue]
+      dtype: uint16
+      nodata: 32767
+      units: 'reflectance'
+    - name: 'sr_band4'
+      aliases: [band_4, green]
+      dtype: uint16
+      nodata: 32767
+      units: 'reflectance'
+    - name: 'sr_band5'
+      aliases: [band_5, swir0]
+      dtype: uint16
+      nodata: 32767
+      units: 'reflectance'
+    - name: 'sr_band6'
+      aliases: [band_6, swir1]
+      dtype: uint16
+      nodata: 32767
+      units: 'reflectance'
+    - name: 'sr_band7'
+      aliases: [band_7, swir2]
+      dtype: uint16
+      nodata: 32767
+      units: 'reflectance'
+    - name: 'qa_band1'
+      aliases: [qa_band1]
+      dtype: uint8
+      nodata: 255
+      units: 'unitless'
+    - name: 'qa_band2'
+      aliases: [qa_band2]
+      dtype: uint8
+      nodata: 255
+      units: 'unitless'
+    - name: 'qa_band3'
+      aliases: [qa_band3]
+      dtype: uint8
+      nodata: 255
+      units: 'unitless'
+    - name: 'qa_band4'
+      aliases: [qa_band4]
+      dtype: uint8
+      nodata: 255
+      units: 'unitless'
+    - name: 'qa_band5'
+      aliases: [qa_band5]
+      dtype: uint8
+      nodata: 255
+      units: 'unitless'
+    - name: 'qa_band6'
+      aliases: [qa_band6]
+      dtype: uint8
+      nodata: 255
+      units: 'unitless'
+    - name: 'qa_band7'
+      aliases: [qa_band7]
+      dtype: uint8
+      nodata: 255
+      units: 'unitless'
+
