@@ -56,7 +56,7 @@ Placing a user related data, notebooks and files into any of the directories, or
 
 ## To shutdown with and without removing the ODC and database containers
 Docker has two ways to shutdown containers:
-* down - will stop and REMOVE the container. This will delete the ODC database and any changes made to the ODC container (e.g. if you added python libraries in the container these will be removed).
+* down - will stop and REMOVE the container. This will delete any changes made to the ODC container (e.g. if you added python libraries in the container these will be removed).
 * stop - will stop the containers but their state will remain. The ODC database and all changes will persist when next started.
 
 The normal workflow is to use `up` to create the containers, start/stop to do your work, keeping any changes you make and down to remove the containers and start over.
@@ -68,6 +68,16 @@ $ docker-compose up -d # creative
 $ docker-compose stop 
 $ docker-compose start
 $ docker-compose down  # destructive
+```
+The database that contains your index of data has a independent lifecycle. It is stored in a separate persistent volume:
+```
+$ docker volume ls
+DRIVER              VOLUME NAME
+local               easi-training-pc-postgres-data
+```
+This means you can change the postgres and odc containers as much as you like and delete them, and the database content will still persist. If you want to start again you can remove it using:
+```
+$ docker volume rm easi-training-pc-postgres-data
 ```
 
 # Using Jupyter Notebooks
