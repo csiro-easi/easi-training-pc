@@ -8,7 +8,7 @@ services:
     environment:
       - POSTGRES_DB=odc
       - POSTGRES_USER=odc
-      - POSTGRES_PASSWORD=eev2
+      - POSTGRES_PASSWORD=AnInsecurePassword
     volumes:
       - postgres-data:/var/lib/postgresql/data
 
@@ -27,7 +27,6 @@ services:
       - ../output:/home/jovyan/output
       - ../work:/home/jovyan/work
       - ./config/datacube.conf:/home/jovyan/.datacube.conf
-      - ./config/datacube_integration.conf:/home/jovyan/.datacube_integration.conf
     
     stdin_open: true
     tty: true

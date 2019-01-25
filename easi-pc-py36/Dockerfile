@@ -20,6 +20,7 @@ ENV DEBIAN_FRONTEND noninteractive
 # Install core requirements for ODC development and jupyter notebooks
 RUN apt-get install -y --no-install-recommends \
     # Core requirements
+    libhdf4-dev \
     gdal-bin gdal-data libgdal-dev libgdal20 libudunits2-0 \
     # Extra python components, to speed things up
     python3 python3-setuptools python3-dev \

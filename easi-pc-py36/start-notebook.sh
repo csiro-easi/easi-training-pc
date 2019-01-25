@@ -9,7 +9,8 @@ if [ ! $(pip3 freeze 2> /dev/null | grep datacube==) ]; then
     
     rm -rf $HOME/.cache/pip
     # Install ODC in develop mode with all dependencies
-    pip3 install -e .
+    # Source rebuild of rasterio to include HDF4 support
+    pip3 install --no-binary rasterio -e .
     # Install remote debugging for Visual Studio Code
     pip3 install ptvsd
 fi
