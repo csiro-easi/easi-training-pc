@@ -13,6 +13,7 @@ RUN sed --in-place --regexp-extended "s/(\/\/)(archive\.ubuntu)/\1au.\2/" /etc/a
 	apt-get update && \
     apt-get install -y --no-install-recommends software-properties-common && \
     add-apt-repository ppa:nextgis/ppa && \
+    apt-get update && \
     apt-get upgrade --yes
 
 ENV DEBIAN_FRONTEND noninteractive
