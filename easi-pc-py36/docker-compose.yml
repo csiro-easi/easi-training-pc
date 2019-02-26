@@ -18,9 +18,14 @@ services:
       - postgres
     environment:
       - DISPLAY
+      - GRANT_SUDO=yes
+    user: root
     ports:
       - "8888:8888"
       - "5678:5678"
+    cap_add: 
+      - SYS_ADMIN
+      - DAC_READ_SEARCH
     volumes:
       - ../datacube-core:/home/jovyan/odc
       - ../../sample_data:/data
