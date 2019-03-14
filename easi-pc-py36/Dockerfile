@@ -13,13 +13,16 @@ RUN sed --in-place --regexp-extended "s/(\/\/)(archive\.ubuntu)/\1au.\2/" /etc/a
 	apt-get update && \
     apt-get install -y --no-install-recommends software-properties-common && \
     add-apt-repository ppa:nextgis/ppa && \
+    apt-get update && \
     apt-get upgrade --yes
 
 ENV DEBIAN_FRONTEND noninteractive
 
 # Install core requirements for ODC development and jupyter notebooks
-RUN apt-get install -y --no-install-recommends \
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
     # Core requirements
+    libhdf4-dev \
     gdal-bin gdal-data libgdal-dev libgdal20 libudunits2-0 \
     # Extra python components, to speed things up
     python3 python3-setuptools python3-dev \
@@ -62,6 +65,8 @@ RUN apt-get install -y --no-install-recommends \
     # texlive-xetex \
     unzip \
     nano \
+    # Support for mounting network drives
+    cifs-utils \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 

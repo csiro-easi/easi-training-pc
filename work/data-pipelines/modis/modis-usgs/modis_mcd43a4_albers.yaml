@@ -1,0 +1,164 @@
+source_type: modis_mcd43a4_scene
+output_type: modis_mcd43a4_albers
+
+description:  MODIS MCD43A4.006 Adjusted Reflectance 500m WGS84,  Australian Albers Equal Area projection (EPSG:3577)
+
+location: '/data/tmp/'
+file_path_template: 'MCD43A4_SR/MCD43A4_SR_3577_{tile_index[0]}_{tile_index[1]}_{start_time}.nc'
+global_attributes:
+  title: MCD43A4- MODIS/Terra and Aqua Nadir BRDF-Adjusted Reflectance Daily L3 Global 500 m SIN Grid V00
+  summary: MCD43A4- MODIS/Terra and Aqua Nadir BRDF-Adjusted Reflectance Daily L3 Global 500 m SIN Grid V00
+  source: Surface reflectance from LEDAPS
+  institution: USGS
+  instrument: ETM
+  cdm_data_type: Grid
+  keywords: AU/GA,NASA/GSFC/SED/ESD/MODIS,REFLECTANCE
+  keywords_vocabulary: GCMD
+  platform: TERRA/AQUA
+  processing_level: L2
+  product_version: '6.0.0'
+  product_suite: USGS Landsat
+  project: AWS
+  coverage_content_type: physicalMeasurement
+  references: http://dx.doi.org/10.3334/ORNLDAAC/1146
+  license: https://creativecommons.org/licenses/by/4.0/
+  naming_authority: gov.usgs
+  acknowledgment: MODIS data is provided by the United States Geological Survey (USGS).
+
+storage:
+  driver: s3aio
+  bucket: 'digiscape-modis-mcd43a4'
+
+  crs: EPSG:3577
+  tile_size:
+          x: 4000000.0
+          y: 4000000.0
+  resolution:
+          x: 500
+          y: -500
+  chunking:
+      x: 2000
+      y: 2000
+      time: 1
+  dimension_order: ['time', 'y', 'x']
+
+measurements:
+    - name: red
+      dtype: uint16
+      nodata: 32767
+      resampling_method: nearest
+      src_varname: 'sr_band1'
+      zlib: True
+      attrs:
+          long_name: "NADIR Reflectance 0.62-0.67 microns (Red)"
+          alias: "band_1"
+    - name: nir
+      dtype: uint16
+      nodata: 32767
+      resampling_method: nearest
+      src_varname: 'sr_band2'
+      zlib: True
+      attrs:
+          long_name: "NADIR Reflectance 0.841-0.876 microns (NIR)"
+          alias: "band_2"
+    - name: blue
+      dtype: uint16
+      nodata: 32767
+      resampling_method: nearest
+      src_varname: 'sr_band3'
+      zlib: True
+      attrs:
+          long_name: "NADIR Reflectance 0.459-0.479 microns (Blue)"
+          alias: "band_3"
+    - name: green
+      dtype: uint16
+      nodata: 32767
+      resampling_method: nearest
+      src_varname: 'sr_band4'
+      zlib: True
+      attrs:
+          long_name: "NADIR Reflectance 0.545-0.565 microns (Green)"
+          alias: "band_4"
+    - name: swir0
+      dtype: uint16
+      nodata: 32767
+      resampling_method: nearest
+      src_varname: 'sr_band5'
+      zlib: True
+      attrs:
+          long_name: "NADIR Reflectance 1.23-1.25 microns (Short-wave Infrared)"
+          alias: "band_5"
+    - name: swir1
+      dtype: uint16
+      nodata: 32767
+      resampling_method: nearest
+      src_varname: 'sr_band6'
+      zlib: True
+      attrs:
+          long_name: "NADIR Reflectance 1.628-1.652 microns (Short-wave Infrared)"
+          alias: "band_6"
+    - name: swir2
+      dtype: uint16
+      nodata: 32767
+      resampling_method: nearest
+      src_varname: 'sr_band7'
+      zlib: True
+      attrs:
+          long_name: "NADIR Reflectance 2.105-2.155 microns (Short-wave Infrared)"
+          alias: "band_7"  
+    - name: qa_band1
+      dtype: uint8
+      nodata: 255
+      resampling_method: nearest
+      src_varname: 'qa_band1'
+      zlib: True
+      attrs:
+          long_name: "qa_band1"
+    - name: qa_band2
+      dtype: uint8
+      nodata: 255
+      resampling_method: nearest
+      src_varname: 'qa_band2'
+      zlib: True
+      attrs:
+          long_name: "qa_band2"
+    - name: qa_band3
+      dtype: uint8
+      nodata: 255
+      resampling_method: nearest
+      src_varname: 'qa_band3'
+      zlib: True
+      attrs:
+          long_name: "qa_band3"
+    - name: qa_band4
+      dtype: uint8
+      nodata: 255
+      resampling_method: nearest
+      src_varname: 'qa_band4'
+      zlib: True
+      attrs:
+          long_name: "qa_band4"
+    - name: qa_band5
+      dtype: uint8
+      nodata: 255
+      resampling_method: nearest
+      src_varname: 'qa_band5'
+      zlib: True
+      attrs:
+          long_name: "qa_band5"
+    - name: qa_band6
+      dtype: uint8
+      nodata: 255
+      resampling_method: nearest
+      src_varname: 'qa_band6'
+      zlib: True
+      attrs:
+          long_name: "qa_band6"
+    - name: qa_band7
+      dtype: uint8
+      nodata: 255
+      resampling_method: nearest
+      src_varname: 'qa_band7'
+      zlib: True
+      attrs:
+          long_name: "qa_band7"
