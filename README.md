@@ -9,6 +9,7 @@
 ## Prerequisites
 * Install git - https://git-scm.com/downloads
 * Install Docker - https://docs.docker.com/install/
+* (Optional) - a python code editor. This is only needed if you intend on writing python code directly, not just use the jupyter notebooks. Several options exist though many folks use Visual Studio Code https://code.visualstudio.com/download
 
 All commands listed here should be entered into a terminal. On Windows Powershell works just fine.
 
