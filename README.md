@@ -5,6 +5,10 @@
 2. [Using Jupyter Notebooks](#using-jupyter-notebooks)
 3. [Debugging my own python with Visual Studio Code](#debugging-my-own-python-with-visual-studio-code)
 
+## Quick-help pages
+* [Using docker](using-docker.md)
+* [Using git](using-git.md)
+
 # Quickly get up and running
 ## Prerequisites
 * Install git - https://git-scm.com/downloads
@@ -19,15 +23,16 @@ All commands listed here should be entered into a terminal. On Windows Powershel
     $ git config --global core.autocrlf false
     ```
 
-## Clone the repository, noting the submodule(s)
+## Clone the repository (or Update your copy), noting the submodule(s)
 To clone the repository and submodules:
 ```
 git clone --recursive https://github.com/csiro-easi/easi-training-pc.git
 ```
 
-If you have cloned it and the submodules didn't load
+If you have cloned it previously and want to update your copy, or if the submodules didn't load
 ```
 $ cd easi-training-pc/
+$ git pull origin master
 $ git submodule update --init --recursive
 ```
 
@@ -116,9 +121,3 @@ $ docker volume rm easi-training-pc-postgres-data
     ```
     The code will block and wait for the debugger to attach.
 1. In Visual Studio Code debugger set breakpoints in your code and then start debugging using the Attach ODC Container (Remote Debug) configuration you setup earlier
-
-
-
-
-# Additional details
-See [easi-pc-py36/readme.md](easi-pc-py36/readme.md) for detailed instructions.
