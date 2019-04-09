@@ -129,6 +129,7 @@ The docker commands above should work as described.
 #### Windows Subsystem for Linux
 1. Get Ubuntu from the Microsoft Store
 2. Follow https://nickjanetakis.com/blog/setting-up-docker-for-windows-and-wsl-to-work-flawlessly to connect to Docker CE for Windows.
+- Note that its necessary to make the change such that C: mounts to /c (not the default /mnt/c); otherwise ```docker-compose up -d``` will fail.
 3. Mount other mapped drives with ```sudo mount -t drvfs  X:  /x```
 
 #### Visual Studio Code
