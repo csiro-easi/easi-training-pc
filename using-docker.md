@@ -115,22 +115,30 @@ $ docker logs -f [CONTAINER NAME]
 ```
 
 ## Windows 10 environment
-There are a few combinations of software that you can use, depending on your preferences. Full details are not provided here. If you require trouble-shooting help then your first option is the internet as its quite likely someone has already tried what you are trying (much of what we know has been found this way). If you're still stuck then contact us and we will provide what guidance we can.
+There are a few combinations of software that you can use, depending on your preferences. Full details are not provided here. If you require trouble-shooting help then your first option is the internet as its quite likely someone has already tried what you are trying (much of what we know has been found this way). If you're still stuck then contact us and we will provide what guidance we can. 
 
 #### Docker CE for Windows
 Create an account and download the software from www.docker.com.
 For most commands and operations you will need to use one of, for example, PowerShell or Command Prompt, Windows Subsystem for Linux, or Visual Studio Code (includes a shell).
+
+Enable Hyper-V
+1. Add or remove programs
+2. Programs and features (right hand side)
+3. Turn Windows features on or off
+4. Scroll down to Hyper-V
+5. Turn everything on
 
 #### PowerShell or Command Prompt
 The docker commands above should work as described.
 
 #### Windows Subsystem for Linux
 1. Get Ubuntu from the Microsoft Store
-2. Set the Hyper-V setting thing
-3. Follow https://nickjanetakis.com/blog/setting-up-docker-for-windows-and-wsl-to-work-flawlessly to connect to Docker CE for Windows.
+2. Follow https://nickjanetakis.com/blog/setting-up-docker-for-windows-and-wsl-to-work-flawlessly to connect to Docker CE for Windows.
+3. Mount other mapped drives with ```sudo mount -t drvfs  X:  /x```
 
 #### Visual Studio Code
-1. Get the Docker extension
+1. Get Python for Windows, from https://www.python.org
+2. Get the Docker extension
 
 The docker commands above should work as described.
 
