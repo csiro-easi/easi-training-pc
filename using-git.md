@@ -113,7 +113,6 @@ $ git pull origin [branch]
 ```
 
 - [What is the difference between 'git pull' and 'git fetch'?](https://stackoverflow.com/q/292357)
-- https://blog.mikepearce.net/2010/05/18/the-difference-between-git-pull-git-fetch-and-git-clone-and-git-rebase/
 
 ## Create a branch
 
