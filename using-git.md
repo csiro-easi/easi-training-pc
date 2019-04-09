@@ -112,7 +112,7 @@ Pull is a combination of ```fetch``` and ```merge```. Pull will attempt to apply
 $ git pull origin [branch]
 ```
 
-- [What is the difference between 'git pull' and 'git fetch'?](#https://stackoverflow.com/q/292357)
+- [What is the difference between 'git pull' and 'git fetch'?](https://stackoverflow.com/q/292357)
 - https://blog.mikepearce.net/2010/05/18/the-difference-between-git-pull-git-fetch-and-git-clone-and-git-rebase/
 
 ## Create a branch
@@ -149,8 +149,8 @@ git stash pop
 ```
 
 stackoverflow
-- [git-pull-keeps-telling-me-to-stash-local-changes-before-pulling]{https://stackoverflow.com/a/20569627}
-- [git-stash-and-git-pull]{https://stackoverflow.com/a/12476984}
+- [git-pull-keeps-telling-me-to-stash-local-changes-before-pulling](https://stackoverflow.com/a/20569627)
+- [git-stash-and-git-pull](https://stackoverflow.com/a/12476984)
 
 ## Revert changes to a file
 You have made some changes to a file but you don't wish to keep them
