@@ -130,7 +130,9 @@ The docker commands above should work as described.
 1. Get Ubuntu from the Microsoft Store
 2. Follow https://nickjanetakis.com/blog/setting-up-docker-for-windows-and-wsl-to-work-flawlessly to connect to Docker CE for Windows.
    - Note that its necessary to make the change such that C: mounts to /c (not the default /mnt/c); otherwise ```docker-compose up -d``` will fail.
-3. Mount other mapped drives with ```sudo mount -t drvfs  X:  /x```
+3. Mount other mapped drives. Mounts other than 'C:' will need to be reset at the start of each session.
+   * (manual) At command line ```sudo mount -t drvfs  X:  /x```
+   * (automatic) In ```/etc/fstab``` add a line like ```H: /h   drvfs   defaults 0 0```
 
 #### Visual Studio Code
 1. Get Python for Windows, from https://www.python.org
