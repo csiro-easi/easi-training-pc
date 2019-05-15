@@ -9,8 +9,7 @@ ADD 99parallel /etc/apt/apt.conf.d/99parallel
 
 # Switch to Australian mirror for ubuntu apt packages, add NextGIS repo and update existing packages for security and patching
 # This is the updated base OS layer
-RUN sed --in-place --regexp-extended "s/(\/\/)(archive\.ubuntu)/\1au.\2/" /etc/apt/sources.list && \
-	apt-get update && \
+RUN apt-get update && \
     apt-get install -y --no-install-recommends software-properties-common && \
     add-apt-repository ppa:nextgis/ppa && \
     apt-get update && \
