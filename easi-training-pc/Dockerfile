@@ -106,7 +106,7 @@ RUN mkdir $HOME/work && \
 # Install psycopg2 as a special case, to quiet the warning message 
     pip3 install --no-cache --no-binary :all: psycopg2 && \
 # Install jupyter notebook and additional python packages for interactive odc use
-    pip3 install jupyter matplotlib folium ffmpeg shapely scikit-image
+    pip3 install jupyter matplotlib folium ffmpeg shapely scikit-image fiona
 
 USER root
 
