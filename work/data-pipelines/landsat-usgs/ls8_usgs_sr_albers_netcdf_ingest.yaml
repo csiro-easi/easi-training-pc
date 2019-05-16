@@ -68,7 +68,7 @@ measurements:
       zlib: True
       attrs:
           long_name: "Surface Reflectance 0.53-0.59 microns (Green)"
-          alias: "band_4"
+          alias: "band_3"
     - name: red
       dtype: int16
       nodata: -9999
