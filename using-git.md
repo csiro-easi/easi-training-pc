@@ -125,6 +125,17 @@ $ git pull origin [branch]
 ## Initialise an existing code directory
 
 ## Add or edit the location of the remote repository
+The remote repository is where you will ```pull``` from and ```push``` to. It is commonly referred to by the alias "origin".
+```
+# If required, add a definition for 'origin"
+git remote add origin [remote-url]
+
+# Change the url of the remote repository
+git remote set-url origin [new-url]
+```
+
+stackoverflow
+- [git-remote-add-origin-vs-remote-set-url-origin](https://stackoverflow.com/a/47194962)
 
 ## Check the status of your local repository
 
