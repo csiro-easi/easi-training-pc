@@ -10,9 +10,9 @@ if [ ! $(pip3 freeze 2> /dev/null | grep datacube==) ]; then
     rm -rf $HOME/.cache/pip
     # Install ODC in develop mode with all dependencies
     # Source rebuild of rasterio to include HDF4 support
-    pip3 install --no-binary rasterio -e .
+    python -m pip install --no-binary rasterio -e .
     # Install remote debugging for Visual Studio Code
-    pip3 install ptvsd
+    python -m pip install ptvsd
 fi
 # Update path
 if [[ ":$PATH:" != *":$HOME/.local/bin:"* ]]; then
@@ -24,4 +24,4 @@ fi
 # Start Jupyter Notebook
 cd $HOME/work
 
-/usr/local/bin/start.sh ~/.local/bin/jupyter notebook --NotebookApp.token='secretpassword' $*
+#/usr/local/bin/start.sh ~/.local/bin/jupyter notebook --NotebookApp.token='secretpassword' $*

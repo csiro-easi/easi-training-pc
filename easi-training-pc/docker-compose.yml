@@ -13,12 +13,17 @@ services:
       - postgres-data:/var/lib/postgresql/data
 
   opendatacube:
-    image: csiroeasi/easi-training-pc:latest
+    # image: csiroeasi/easi-training-pc:latest
+    image: csiroeasi/easi-training-pc:develop
     depends_on:
       - postgres
     environment:
       - DISPLAY
       - GRANT_SUDO=yes
+      - JUPYTER_ENABLE_LAB=yes
+    command: >
+      start-notebook.sh
+      --NotebookApp.token='secretpassword'
     user: root
     ports:
       - "8888:8888"
