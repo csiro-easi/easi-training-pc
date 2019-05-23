@@ -23,5 +23,3 @@ else
 fi
 # Start Jupyter Notebook
 cd $HOME/work
-
-#/usr/local/bin/start.sh ~/.local/bin/jupyter notebook --NotebookApp.token='secretpassword' $*
