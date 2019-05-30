@@ -5,6 +5,9 @@
   - [Global configuration options](#global-configuration-options)
   - [General workflow for a shared github or bitbucket repository](#general-workflow-for-a-shared-github-or-bitbucket-repository)
   - [General workflow for your own repository](#general-workflow-for-your-own-repository)
+  - [Trouble-shooting](#trouble-shooting)
+  - [More about branches](#more-about-branches)
+  - [More about submodules](#more-about-submodules)
   - [Additional topics](#additional-topics)
 
 *Note: This document is a work in progress*
@@ -142,6 +145,34 @@ stackoverflow
 ## Stash any changes you may have made
 
 ## Revert any files you may changed
+
+## Trouble-shooting
+
+Git is quite good at providing information about why it can not perform an operation. However, it can be daunting running a command when you're not sure what it may do. If in doubt, we recommend ask the internet or phone a friend. Stackoverflow is an excellent resource for understanding what a command will do and which commands to use in sequence. 
+
+## More about branches
+
+Branches are a powerful and necessary feature of git for collaborative teams but can be daunting to new users. At its simplest, you can create your own branch - locally - make changes locally. At any time you can commit your branch to the remote repository, and when your changes are ready you can submit your branch as a pull request to the 'main' branch. The 'main' branch may commonly be 'master' or 'develop'.
+
+Branching works within git by tracking individual commits, and by managing any file-level conflicts during a merge between branches. If there are conflicts git will ask to you resolve them; git will merge automatically only when there are no file-level conflicts - this is the common case when you know your changes wont affect other parts of the code. The pull request and review procedure allows one of your collaborators to assess your changes for any implications in the rest of the code.
+
+We encourage you to read more about branching:
+- [A successful Git branching model](https://nvie.com/posts/a-successful-git-branching-model)
+
+## More about submodules
+
+The CSIRO EASI Training repository contains the datacube-core repository as a tagged submodule from https://github.com/opendatacube. The datacube-core submodule is regularly tested and updated (re-tagged), which helps manage any changes that may be required in the CSIRO EASI Training repository.
+
+Sometimes you will need to re-syncronise your local copy of the datacube-core submodule against the updated (re-tagged) version in the CSIRO EASI Training repository.
+```
+To do: How best to manage any local changes you may have made to datacube-core
+
+git submodule update --init --recursive
+git pull origin master
+```
+
+stackoverflow
+- [git-submodules-and-rebase](https://stackoverflow.com/a/16700914)
 
 
 <hr>
