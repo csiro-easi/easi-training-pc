@@ -8,6 +8,7 @@
 ## Quick-help pages
 * [Using docker](using-docker.md)
 * [Using git](using-git.md)
+* [Using Index and Ingest](using-indexingest.md)
 
 # Quickly get up and running
 ## Prerequisites

@@ -21,7 +21,7 @@ There are three main components to index/prepare/ingext requirements for ODC.
 > Indexing is for the 'raw' format as available from download or a data custodian. This includes initial product definition.
 2. Prepare - create a (python) script that extracts file-specific information for each data file. Record this per-file information in a long structure YAML-format file, which is then indexed into the database against a specific product definition.
 > Preparing is reading the raw format files to extract dimension extents and relevant file-specific metadata.
-3. Ingest - optionally create a format tranformation definition that describes how to reformat and indexed dataset into a new format. Ingesting is intended to be used to create data stuctures that are computationally preferred for a specific set of applications. An ingested datset creates a new product in the datacube. 
+3. Ingest - optionally create a format tranformation definition that describes how to reformat and indexed dataset into a new format (copy). Ingesting is intended to be used to create data stuctures that are computationally preferred for a specific set of applications. An ingested datset creates a new product in the datacube. 
 > Ingesting is for creating computional data structures from indexed data. This creates a new product.
 
 ## Index
@@ -66,22 +66,57 @@ datacube product add [path-to-product-definition-yaml]
 
 ## Prepare
 
-> These fields come from older notes and need to validated
+> These fields have been partly validated against the data.dea.gov.au example below.
 
 * id: UUID
 * creation_dt
-* product_type
+* product_type: ard
 * platform: code  # Must match with product definition
-* Instrument: name  # Must match with product definition
-* format: ‘NetCDF’ and ‘HDF’
+* instrument: name  # Must match with product definition
 * extent
-* grid_spatial/projection
-    * spatial_reference: EPSG:[code> or WKT string.
-    * geo_ref_points
-    * valid_data (optional): Only needs to be roughly correct. Prefer simpler geometry over accuracy.
-* image/bands
-    * path
-    * layer (optional)
+    * center_dt
+    * coord
+        * ll
+            * lat
+            * lon
+        * lr
+            * lat
+            * lon
+        * ul
+            * lat
+            * lon
+        * ur
+            * lat
+            * lon
+* format: ‘NetCDF’, ‘HDF’, 'GeoTiff'
+* grid_spatial
+    * projection
+        * geo_ref_points
+            * ll
+                * x
+                * y
+            * lr
+                * x
+                * y
+            * ul
+                * x
+                * y
+            * ur
+                * x
+                * y
+        * spatial_reference: PROJCS[...]
+        * valid_data (optional): Only needs to be roughly correct. Prefer simpler geometry over accuracy.
+            * coordinates
+            * [list of points]
+            * type" Polygon
+* image
+    * bands
+        * "band_name_1"
+            * layer: 1
+            * path: relative file path
+        * "band_name_2"
+            * layer: 1
+            * path: relative file path
 * lineage
     * source_datasets
         * level1:
@@ -108,15 +143,24 @@ datacube product add [path-to-product-definition-yaml]
                 * version: '0.4'
     * ancillary (optional)
         * ephemeris:
+* algorithm_information (check how/if this is diffeent to lineage)
+* processing_level: Level-2
+* system_information
+* title_id
 
 Examples:
 - Prepare script(s)
 - https://github.com/opendatacube/datacube-core/blob/develop/datacube/model/schema/dataset-type-schema.yaml
+- https://data.dea.ga.gov.au/L2/sentinel-2-nrt/S2MSIARD/2019-06-04/S2A_OPER_MSI_ARD_TL_EPAE_20190604T011841_A020619_T56LQM_N02.07/ARD-METADATA.yaml
 
 A prepare script  creates yaml(s) in the path-to-dataset directory.
 ```
 datacube dataset add --auto-match <path-to-dataset>
 ```
+
+Notes:
+- Field names with spaces or hyphens are generally discouraged, i.e. "sentinel-1", "ingestion Date"
+- Paths to the measurement data can be relative; this enables moving of datasets to new locations easier, i.e. no re-creation of the product yaml
 
 ## Ingest
 
