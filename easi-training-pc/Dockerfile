@@ -44,6 +44,9 @@ RUN mkdir $HOME/odc && \
     python -m pip install --no-cache --no-binary :all: psycopg2 && \
 # Install jupyter notebook and additional python packages for interactive odc use
     python -m pip install folium ffmpeg shapely scikit-image fiona
+RUN conda install -c conda-forge gdal
+RUN conda install -c conda-forge netcdf4
+RUN conda install rasterio
 
 COPY odc-install.sh /usr/local/bin/start-notebook.d/
 
