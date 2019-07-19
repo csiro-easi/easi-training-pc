@@ -1,4 +1,9 @@
 FROM 444488357543.dkr.ecr.ap-southeast-2.amazonaws.com/easi-jupyter-singleserver:latest
+# For AWS ECR access to easi-jupyter-singleserver obtain the login credentials using this (required valid AWS credentials)
+#  $ aws ecr get-login --no-include-email --region ap-southeast-2
+#  $ docker build . -t csiroeasi/easi-training-pc:develop
+#  $ docker run --rm -it csiroeasi/easi-training-pc:develop /bin/bash
+#  $ docker push csiroeasi/easi-training-pc:develop 
 
 LABEL maintainer="CSIRO EASI Data Cube Training on PC <Robert.Woodcock@csiro.au>"
 
