@@ -29,7 +29,6 @@ RUN mkdir $HOME/odc && \
 COPY odc-install.sh /usr/local/bin/start-notebook.d/
 
 WORKDIR $HOME/work
-
 # Switch back to jovyan to avoid accidental container runs as root
 USER $NB_UID
 

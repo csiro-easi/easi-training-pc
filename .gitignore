@@ -105,3 +105,5 @@ venv.bak/
 output/
 .vscode/settings.json
 .vscode/launch.json
+work/pangeo/dask-worker-space/global.lock
+work/pangeo/dask-worker-space/purge.lock
