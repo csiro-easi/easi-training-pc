@@ -17,16 +17,12 @@ RUN apt-get update && \
     cifs-utils \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
-    
+RUN pip3 install ptvsd    
 USER $NB_UID
 
 # Setup work directory for backward-compatibility
 RUN mkdir $HOME/odc && \
     /bin/bash fix-permissions $HOME
-
-# ODC is install but on training PC the option exists to do dataucbe-core deveopment using a user development install
-# this script will install that component
-COPY odc-install.sh /usr/local/bin/start-notebook.d/
 
 WORKDIR $HOME/work
 # Switch back to jovyan to avoid accidental container runs as root

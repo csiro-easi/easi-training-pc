@@ -9,10 +9,8 @@ if [ ! $(pip3 freeze 2> /dev/null | grep datacube==) ]; then
     
     rm -rf $HOME/.cache/pip
     # Install ODC in develop mode with all dependencies
-    # Source rebuild of rasterio to include HDF4 support
-    python -m pip install --no-binary rasterio -e .
+    python -m pip install -e .
     # Install remote debugging for Visual Studio Code
-    python -m pip install ptvsd
 fi
 # Update path
 if [[ ":$PATH:" != *":$HOME/.local/bin:"* ]]; then
