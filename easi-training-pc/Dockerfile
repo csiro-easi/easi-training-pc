@@ -21,8 +21,7 @@ RUN pip3 install ptvsd
 USER $NB_UID
 
 # Setup work directory for backward-compatibility
-RUN mkdir $HOME/odc && \
-    /bin/bash fix-permissions $HOME
+RUN /bin/bash fix-permissions $HOME
 
 WORKDIR $HOME/work
 # Switch back to jovyan to avoid accidental container runs as root

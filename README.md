@@ -26,14 +26,13 @@ All commands listed here should be entered into a terminal. On Windows Powershel
 ## Clone the repository (or Update your copy), noting the submodule(s)
 To clone the repository and submodules:
 ```
-git clone --recursive https://github.com/csiro-easi/easi-training-pc.git
+git clone https://github.com/csiro-easi/easi-training-pc.git
 ```
 
 If you have cloned it previously and want to update your copy, or if the submodules didn't load
 ```
 $ cd easi-training-pc/
 $ git pull origin master
-$ git submodule update --init --recursive
 ```
 
 ## Download and run the docker images for the first time 
@@ -49,7 +48,6 @@ Changes that are user would make, be it python library installs, database index,
 
 All notebooks, data and python code are stored on the host system as paths relative to the git root ("`$ cd easi-training-pc`"). The list below shows the relative path on the host and the path that is mounted in the opendatacube container:
 ```
-      - ../datacube-core:/home/jovyan/odc
       - ../../sample_data:/data
       - ../output:/home/jovyan/output
       - ../work:/home/jovyan/work

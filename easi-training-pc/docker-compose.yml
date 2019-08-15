@@ -37,7 +37,6 @@ services:
       - SYS_ADMIN
       - DAC_READ_SEARCH
     volumes:
-      - ../datacube-core:/home/jovyan/odc
       - ../../sample_data:/data
       - ../output:/home/jovyan/output
       - ../work:/home/jovyan/work
