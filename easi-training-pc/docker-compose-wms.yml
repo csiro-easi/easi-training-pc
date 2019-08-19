@@ -1,0 +1,60 @@
+version: '3.4'
+
+services:
+  postgres:
+    image: postgres:alpine
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=odc
+      - POSTGRES_USER=odc
+      - POSTGRES_PASSWORD=AnInsecurePassword
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+  wms:
+    image: opendatacube/wms
+    environment:
+      - DB_HOSTNAME=postgres
+      - DB_PORT=5432
+      - DB_DATABASE=odc
+      - DB_USERNAME=odc
+      - DB_PASSWORD=AnInsecurePassword
+    command: >
+       gunicorn -b '127.0.0.1:8000' -w 4 --timeout 120 datacube_wms.wsgi --pid=gunicorn.pid
+    ports:
+      - 8000:8000
+  opendatacube:
+    # image: csiroeasi/easi-training-pc:latest
+    image: csiroeasi/easi-training-pc:develop
+    depends_on:
+      - postgres
+    environment:
+      - DISPLAY
+      - GRANT_SUDO=yes
+      - JUPYTER_ENABLE_LAB=yes
+      - DB_HOSTNAME=postgres
+      - DB_PORT=5432
+      - DB_DATABASE=odc
+      - DB_USERNAME=odc
+      - DB_PASSWORD=AnInsecurePassword
+    command: >
+      start-notebook.sh
+      --NotebookApp.token='secretpassword'
+    user: root
+    ports:
+      - "8888:8888"
+      - "5678:5678"
+    cap_add: 
+      - SYS_ADMIN
+      - DAC_READ_SEARCH
+    volumes:
+      - ../../sample_data:/data
+      - ../output:/home/jovyan/output
+      - ../work:/home/jovyan/work
+    
+    stdin_open: true
+    tty: true
+
+volumes: 
+  postgres-data:
+    name: easi-training-pc-postgres-data
