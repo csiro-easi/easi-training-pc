@@ -20,7 +20,7 @@ services:
       - DB_USERNAME=odc
       - DB_PASSWORD=AnInsecurePassword
     command: >
-       gunicorn -b '127.0.0.1:8000' -w 4 --timeout 120 datacube_wms.wsgi --pid=gunicorn.pid
+       gunicorn -b '0.0.0.0:8000' -w 4 --timeout 120 datacube_wms.wsgi --pid=gunicorn.pid
     ports:
       - 8000:8000
   opendatacube:
