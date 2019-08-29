@@ -1,0 +1,34 @@
+name: frac_cover
+description: Fractional cover with three bands - MODIS, CSIRO Land and Water algorithm. Version 3.1.0 in Australian Albers projection
+metadata_type: eo
+
+metadata:
+    platform:
+        code: MODIS MCD43A4
+    product_type: monthly
+    format:
+        name: GeoTiff
+measurements:
+    - name: 'bare_soil'
+      aliases: [band_1, bare_soil]
+      dtype: uint8
+      nodata: 255
+      units: percent
+    - name: 'phot_veg'
+      aliases: [band_2, phot_veg]
+      dtype: uint8
+      nodata: 255
+      units: percent
+    - name: 'nphot_veg'
+      aliases: [band_3, nphot_veg]
+      dtype: uint8
+      nodata: 255
+      units: percent
+
+storage:
+  resolution:
+    x: 463.312716527916905
+    y: -463.312716527916734
+  tile_size:
+    x: 2400
+    y: 2400
