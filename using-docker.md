@@ -36,9 +36,13 @@ csiroeasi/easi-training-pc   latest              af0f9050058d        3 weeks ago
 postgres                     alpine              9ca7fdaec623        4 weeks ago         70.8MB
 ```
 
-Remove or delete and image
+Remove or delete an image
 ```
 $ docker image rm REPOSITORY[:TAG]
+```
+Remove all images
+```
+$ docker image rm $(docker images -a -q)
 ```
 
 ## List containers, with their names and IDs
@@ -47,6 +51,15 @@ $ docker ps -a
 CONTAINER ID   IMAGE                               COMMAND                  CREATED          STATUS         PORTS                                            NAMES
 11c215be8d9b   csiroeasi/easi-training-pc:latest   "/usr/local/bin/tini…"   10 seconds ago   Up 8 seconds   0.0.0.0:5678->5678/tcp, 0.0.0.0:8888->8888/tcp   easi-pc-py36_opendatacube_1
 993c76da5286   postgres:alpine                     "docker-entrypoint.s…"   11 seconds ago   Up 9 seconds   0.0.0.0:5432->5432/tcp                           easi-pc-py36_postgres_1
+```
+
+Remove or delete a container
+```
+$ docker rm REPOSITORY[:TAG]
+```
+Remove all containers
+```
+$ docker rm $(docker ps -a -q)
 ```
 
 The CSIRO datacube training containers open (map) a set of ports that allow connections into the containers from software outside of the containers:
@@ -79,9 +92,16 @@ The datacube database is created in a persistent volume, which is persistent thr
 $ docker volume ls                # list volumes
 DRIVER              VOLUME NAME
 local               easi-training-pc-postgres-data
+```
 
+Remove or delete a volume
+```
 $ docker volume rm [VOLUME NAME]  # remove a volume
 $ docker volume prune             # remove all orphaned volumes
+```
+Remove all volumes
+```
+$ docker volume rm $(docker volume ls -q)
 ```
 
 ## Connect into a container
