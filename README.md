@@ -37,7 +37,7 @@ $ git pull origin master
 
 ## Download and run the docker images for the first time 
 ```
-$ cd easi-training-pc/easi-pc-py36/
+$ cd easi-training-pc/easi-training-pc/
 $ docker-compose up -d
 ```
 
@@ -66,7 +66,7 @@ The normal workflow is to use `up` to create the containers, start/stop to do yo
 
 Here's all the commands:
 ```
-$ cd easi-training-pc/easi-pc-py36/
+$ cd easi-training-pc/easi-training-pc/
 $ docker-compose up -d # creative
 $ docker-compose stop 
 $ docker-compose start
@@ -105,7 +105,7 @@ $ docker volume rm easi-training-pc-postgres-data
     ```
 1. Connect to a bash shell inside the container (you can use the Visual Studio Code build in terminal to do this, or the Docker extension you can just right click Attach Shell)
     ```
-    $ docker exec -t -i easi-pc-py36_opendatacube_1 /bin/bash
+    $ docker exec -t -i easi-training-pc_opendatacube_1 /bin/bash
     ```
     _Note: The container above will change if you have a container of the same name still around. You can list current containers and get the names using:_
     ```
