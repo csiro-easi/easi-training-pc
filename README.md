@@ -1,3 +1,8 @@
+> This repository is no longer maintained here.
+> Further development occurs in https://dev.azure.com/csiro-easi/easi-hub-public/_wiki/wikis/easi-hub-public.wiki/36/Training.
+
+----
+
 # CSIRO EASI training environment for PC (Win,Mac,Linux) 
 
 # Table of Contents
